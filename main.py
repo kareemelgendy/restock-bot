@@ -5,12 +5,6 @@ from inputP import getProdType, getCartNum, retryEntry, getWatchOption
 from utilitiesP import getProduct, getNumVariants, getVariantInfo, checkAvailability, formatSize, getCartLink
 from outputP import printHeader, printResult
 
-# TO DO LIST    
-# save product information somewhere for future reference
-# run script in the background
-# save product information until manually deleted
-# look over input functions
-
 printHeader()
 
 # Getting the url from the user
@@ -60,12 +54,13 @@ if variant_id != None:
         
         print('\nAdding product to cart, one moment.')
         webbrowser.open_new(cart_url)
-        print('Task completed.')
+        print('Task completed.\n')
+        quit()
     else:
         print('\nProduct not in stock')
         getWatchOption()
 
 # If no product was found
 else:
-    print('Item not found')
+    print('Product not found')
     retryEntry()

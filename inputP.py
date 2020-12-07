@@ -87,7 +87,7 @@ def getWatchOption():
     watch_prod = input('Would you like to watch this product? (y/n): ')
 
     if watch_prod == 'y':
-        print('\nAdding product to watch the list')
+        print('\nAdding product to watch the list...')
         getAutoCheckout()
     elif watch_prod == 'n':
         print('\nQuitting now...')
