@@ -44,6 +44,7 @@ def getProdType():
 # Function that gets the number of items the user wants to cart
 def getCartNum():
     print('\nHow many would you like to cart?')
+
     try:
         num_items = int(input('Enter number (1 recommended for products with high demand): '))
         return num_items
@@ -61,36 +62,46 @@ def retryEntry(target_product_id):
         print('\nMake sure you enter a valid/live product url and the correct options.')
         retry = input('Would you like to try again? (y/n): ')
         if retry == 'y':
-            return True #####
+            return True ##### run the program again
         elif retry == 'n':
             quit()
         else:
             retryEntry()
     else:
-        getCartNum()
+        print('Error - Invalid entry (size or colour')
 
-def getAutoCheckout():
-
+def getAutoCheckout(product_name, product_id, variant_id):
     print('\nWould you like to attempt to check it out automatically')
     auto_checkout = input('when the product becomes available? (y/n): ')
 
     if auto_checkout == 'y':
-        print('Add info to file') #######
+
+        prod_dict = Product()
+        prod_dict.newProduct(product_name, product_id, variant_id)
+
+        print('Add info to file') 
+        getUserInfo()
+        # return profil dict
+
     elif auto_checkout == 'n':
         print('Make sure to check back later!') ##### update user in another way
         print('Quitting now...')
         quit() 
     else:
-        getAutoCheckout()
+        getAutoCheckout(product_name, product_id, variant_id)
 
-def getWatchOption():
+def getWatchOption(profile_dict, product_dict, product_name, product_id, variant_id):
     watch_prod = input('Would you like to watch this product? (y/n): ')
 
     if watch_prod == 'y':
-        print('\nAdding product to watch the list...')
-        getAutoCheckout()
+        print('\nAdding product to watch the list...') ###### Add product to watchlist - product dictionary
+        getAutoCheckout(product_name, product_id, variant_id)
+        
     elif watch_prod == 'n':
-        print('\nQuitting now...')
-        quit()
+        if len(profile_dict) == 0:
+            print('\nQuitting now...')
+            quit()
+        else:
+            print('Press X to call the program menu') ###
     else:
-        getWatchOption()
+        getWatchOption(product_name, product_id, variant_id)

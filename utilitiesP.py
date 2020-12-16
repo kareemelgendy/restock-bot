@@ -4,12 +4,15 @@ import json
 
 from inputP import getProdType
 
-#def saveProduct(prod_title, prod_dict, value):
-
 # Function that loads the products json file
 def getProduct(prod_url):
+
+    if len(prod_url.split('?')) > 1:
+        prod_url = prod_url.split('?')[0]
+
     web_json = prod_url + '.json'
     prod_handle = prod_url.split('products/')[1].lower()
+
     website = requests.get(web_json)
     products = json.loads((website.text))
 
@@ -59,6 +62,8 @@ def formatSize(size):
             size = 'm'
         elif size[0] == 'l':
             size = 'l'
+        else:
+            return None
 
     return size
 
@@ -126,12 +131,18 @@ def getVariantInfo(variants, target_prod):
                     if option == str(shoe_size):
                         return variant_id
 
-    print('Product not found.')
+    print('\nProduct not found.')
     return None
 
 def checkAvailability(prod_url, prod_id, var_id):
 
-    tld = '.' + prod_url.split('/')[2].split('.')[1]
+    domain = prod_url.split('/')[2].split('.')
+
+    if len(domain) == 3:
+        tld = domain[2]
+    elif len(domain) == 2:
+        tld = domain[1]
+
     web_json = prod_url.split(tld)[0] + tld + '/products.json?limit=1000'
     website = requests.get(web_json)
     products = json.loads((website.text))['products']
@@ -153,6 +164,7 @@ def checkAvailability(prod_url, prod_id, var_id):
 
 def getCartLink(prod_url, variant_id, num_items):
 
-    tld = '.' + prod_url.split('/')[2].split('.')[1]
-    cart_url = prod_url.split(tld)[0] + tld + '/cart/update?updates[' + str(variant_id) + ']=' + str(num_items)
+    domain = prod_url.split('/')[2]
+    cart_url = 'https://' + domain + '/cart/update?updates[' + str(variant_id) + ']=' + str(num_items)
+    print(cart_url)
     return cart_url
