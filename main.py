@@ -1,11 +1,19 @@
 
 import webbrowser
 
+from profileDict import Profile
+from productDict import Product
+
 from inputP import getProdType, getCartNum, retryEntry, getWatchOption
 from utilitiesP import getProduct, getNumVariants, getVariantInfo, checkAvailability, formatSize, getCartLink
 from outputP import printHeader, printResult
 
-printHeader()
+# Initializing the dictionaries
+profile_dict = Profile()
+product_dict = Product()
+
+# Banner
+printMainHeader()
 
 # Getting the url from the user
 prod_url = input('\nInsert Product URL: ')
@@ -17,8 +25,8 @@ prod_options = product['product']['variants'] # List of product variants
 
 target_prod = getProdType()
 variant_id = getVariantInfo(prod_options, target_prod)
-
 available = checkAvailability(prod_url, prod_id, variant_id)
+
 product_type = target_prod[0]
 
 if available:
@@ -28,9 +36,8 @@ else:
 
 # If a product was found 
 if variant_id != None:
-
     # Printing product specifications
-    printResult()
+    printResultHeader()
     print('Product Name: ' + str(prod_title))
 
     # Print the options 
@@ -47,20 +54,24 @@ if variant_id != None:
     print('Availability: ' + str(status))
     print('---------------------------------')
 
-    # if the product is in stock
+    # If the product is in stock
     if available:
         num_items = getCartNum()
         cart_url = getCartLink(prod_url, variant_id, num_items)
         
+        # Opening cart in browser
         print('\nAdding product to cart, one moment.')
         webbrowser.open_new(cart_url)
         print('Task completed.\n')
         quit()
+
     else:
         print('\nProduct not in stock')
-        getWatchOption()
+        cart_url = getCartLink(prod_url, variant_id, 1)
+        getWatchOption(profile_dict, product_dict, prod_title, prod_id, variant_id, cart_url)
 
-# If no product was found
+        # run availability check here
+
+# If product was not found or invalid entry
 else:
-    print('Product not found')
-    retryEntry()
+    retryEntry(prod_id)

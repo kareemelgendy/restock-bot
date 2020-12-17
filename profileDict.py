@@ -30,10 +30,11 @@ class Profile:
     def deleteProfile(self, profile_name):
         del self.profiles[profile_name]
 
-    # Returns Value of a key in given profile
+    # Returns value of a key in given profile
     def getVal(self, profile_name, key):
         return self.profiles[profile_name][key]
 
+    # Sets the value of a key in a dictionary
     def setVal(self, profile_name, target_key, newValue):
         profile = self.profiles[profile_name]
         for keys in profile:
@@ -41,10 +42,12 @@ class Profile:
                 profile[target_key] = newValue
                 break
 
+    # Prints a profile's deetails
     def printProfile(self, profile_name):
         print('Profile Name: ' + str(profile_name))
         for keys in self.profiles[profile_name]:
             print(str(keys) + ': ' + str(self.profiles[profile_name][keys]))
     
+    # Returns the size of the dictionary
     def size(self):
         return len(self.profiles)

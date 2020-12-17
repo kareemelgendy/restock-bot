@@ -7,6 +7,7 @@ from inputP import getProdType
 # Function that loads the products json file
 def getProduct(prod_url):
 
+    #If a variant is in the url
     if len(prod_url.split('?')) > 1:
         prod_url = prod_url.split('?')[0]
 
@@ -18,7 +19,7 @@ def getProduct(prod_url):
 
     return products
 
-# Function that gets the number of product variants
+# Returns the number of product variants
 def getNumVariants(variants): 
     variant_count = 0
     i = 1
@@ -30,7 +31,7 @@ def getNumVariants(variants):
         i += 1
     return variant_count
 
-# Function that formats the clothing size
+# Formats the clothing size
 def formatSize(size):
 
     # Formatting the size
@@ -134,6 +135,7 @@ def getVariantInfo(variants, target_prod):
     print('\nProduct not found.')
     return None
 
+# Returns product availability
 def checkAvailability(prod_url, prod_id, var_id):
 
     domain = prod_url.split('/')[2].split('.')
@@ -147,24 +149,25 @@ def checkAvailability(prod_url, prod_id, var_id):
     website = requests.get(web_json)
     products = json.loads((website.text))['products']
 
+    # Checking availability
     for product in products:
         if product['id'] == prod_id:
             name = product['title']
 
             variants = product['variants']
             for variant in variants:
-                availability = variant['available']
+                available = variant['available']
 
                 if variant['id'] == var_id:
-                    availability = variant['available']
-                    if availability:
+                    available = variant['available']
+                    if available:
                         return True
 
     return False
 
+# Creates and returns the cart url of item entered
 def getCartLink(prod_url, variant_id, num_items):
 
     domain = prod_url.split('/')[2]
     cart_url = 'https://' + domain + '/cart/update?updates[' + str(variant_id) + ']=' + str(num_items)
-    print(cart_url)
     return cart_url
