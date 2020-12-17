@@ -1,5 +1,5 @@
 
-def printMainHeader():
+def printBanner():
 
     print('\n----------------------------------------------------------')
     print('                  Welcome to RestockBot')
@@ -9,8 +9,3 @@ def printMainHeader():
     print('- Accessories with no variants (o/s - one option)')
     print('- Footwear with number size options')
     print('----------------------------------------------------------')
-
-def printResultHeader():
-    print('\n------------------------------------')
-    print('              Product Found')
-    print('------------------------------------')

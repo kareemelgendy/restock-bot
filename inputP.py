@@ -2,6 +2,8 @@
 from profileDict import Profile
 from productDict import Product
 
+# getShoeSize, getProdType, getUserInfo, createProfile, getAutoCheckout, getWatchOption
+
 # Validates user entry for shoe size
 def getShoeSize():
     try:
@@ -43,35 +45,18 @@ def getProdType():
         getProdType()
 
     return None
-
-# Gets the number of items the user wants to cart
-def getCartNum():
-    print('\nHow many would you like to cart?')
-
-    try:
-        num_items = int(input('Enter number (1 recommended for products with high demand): '))
-        return num_items
-    except ValueError:
-        if num_items == 'q':
-            quit()
-        else:
-            print("Invalid input - please enter a valid whole number.")
-            getCartNum()
-
-# Catches mistakes and reruns program
-def retryEntry(target_product_id):
     
-    if target_product_id == None:
-        print('\nMake sure you enter a valid/live product url and the correct options.')
-        retry = input('Would you like to try again? (y/n): ')
-        if retry == 'y':
-            return True ##### run the program again
-        elif retry == 'n':
-            quit()
-        else:
-            retryEntry()
-    else:
-        print('Error - Invalid entry (size or colour')
+#     if target_product_id == None:
+#         print('\nMake sure you enter a valid/live product url and the correct options.')
+#         retry = input('Would you like to try again? (y/n): ')
+#         if retry == 'y':
+#             return True ##### run the program again
+#         elif retry == 'n':
+#             quit()
+#         else:
+#             retryEntry()
+#     else:
+#         print('Error - Invalid entry (size or colour')
 
 
 def getUserInfo(profile_dict, product_dict, product_name):
@@ -94,29 +79,22 @@ def createProfile(profile_dict, product_dict, product_name):
     profile_dict.setVal(profile_name, 'Address', input('Address 1: '))
     profile_dict.setVal(profile_name, 'Address 2', input('Address 2 (optional): '))
 
-    country = input('Country: ')
-    profile_dict.setVal(profile_name, 'Country', country)
-
-    if country[0].lower() == 'u':
-        profile_dict.setVal(profile_name, 'State', input('State: '))
-    elif country[0].lower() == 'c':
-        profile_dict.setVal(profile_name, 'Province', input('Province: '))
-
+    profile_dict.setVal(profile_name, 'Country', input('Country: '))
+    profile_dict.setVal(profile_name, 'Province', input('Province/State: '))
     profile_dict.setVal(profile_name, 'City', input('City: '))
     profile_dict.setVal(profile_name, 'Postal Code', input('Postal Code: '))
     profile_dict.setVal(profile_name, 'Phone', input('Phone Number: ').strip(' -'))
 
     profile_dict.setVal(profile_name, 'CC Number', input('Credit Card Number: ').strip(' '))
     profile_dict.setVal(profile_name, 'CC Name', input('Name on CC: '))
-    profile_dict.setVal(profile_name, 'Expiry Month', input('Expiry Month (2 Digits): '))
-    profile_dict.setVal(profile_name, 'Expiry Year', input('Expiry Year (4 Digits): '))
+    profile_dict.setVal(profile_name, 'Expiry', input('Expiry (MM/YY): '))
     profile_dict.setVal(profile_name, 'CVV', input('CVV: '))
 
     # Assigning profile to use for product checkout
     product_dict.setVal(product_name, 'Profile', profile_name)
 
 # Checks if the user would like to automatically check out the item
-def getAutoCheckout(profile_dict, product_dict, product_name):
+def getAutoCheckout(profile_dict):
 
     # profile_dict, product_dict, product_name, product_id, variant_id
 
@@ -124,13 +102,11 @@ def getAutoCheckout(profile_dict, product_dict, product_name):
     auto_checkout = input('when the product becomes available? (y/n): ')
 
     if auto_checkout == 'y':
-        print(str(profile_dict.size()))
         if(profile_dict.size() == 0):
             print('\nCreate your profile below: ')
             print('Enter required fields correctly. Press enter to skip fields that do not apply.')
-            createProfile(profile_dict, product_dict, product_name)
+            return True
 
-            #watchProducts(profile_dict, product_dict)
         else:
             print('\nWhich profile would you like to use: ') #####
             print('list all profiles here.') ######
@@ -140,27 +116,35 @@ def getAutoCheckout(profile_dict, product_dict, product_name):
         print('Quitting now...')
         quit() 
     else:
-        getAutoCheckout(profile_dict, product_dict, product_name)
+        getAutoCheckout()
 
 # Checks if the user wants to watch the entered product
-def getWatchOption(profile_dict, product_dict, product_name, product_id, variant_id, cart_url):
+def getWatchOption():
     watch_prod = input('Would you like to watch this product? (y/n): ')
 
     if watch_prod == 'y':
-        # num_items = getCartNum() ###
-        
-        product_dict.newProduct(product_name) ## Adding product to watchlist
-        product_dict.setVal(product_name, 'Product ID', product_id)
-        product_dict.setVal(product_name, 'Variant ID', variant_id)
-        product_dict.setVal(product_name, 'Cart URL', cart_url)
-
-        getAutoCheckout(profile_dict, product_dict, product_name)
+        return True
         
     elif watch_prod == 'n':
         if profile_dict.size() == 0:
             print('\nQuitting now...')
             quit()
         else:
-            print('Press X to call the program menu') ###
+            print('Press X to call the program menu') #### Command to call menu to modify/termiante the program
     else:
-        getWatchOption(product_name, product_id, variant_id)
+        getWatchOption()
+
+def getNewProd(prod_dict):
+    
+    newProd = input('Would you like to enter another product? (y/n): ')
+
+    if newProd == 'y':
+        return True
+
+    elif newProd == 'n':
+        if prod_dict.size() == 0:
+            print('Watchlist is empty - quitting now')
+            quit()
+
+    else:
+        getNewProd()

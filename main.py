@@ -3,75 +3,71 @@ import webbrowser
 
 from profileDict import Profile
 from productDict import Product
-
-from inputP import getProdType, getCartNum, retryEntry, getWatchOption
-from utilitiesP import getProduct, getNumVariants, getVariantInfo, checkAvailability, formatSize, getCartLink
-from outputP import printHeader, printResult
+from outputP import *
+from inputP import *
+from utilitiesP import *
+from watch import *
 
 # Initializing the dictionaries
 profile_dict = Profile()
-product_dict = Product()
+prod_dict = Product()
 
 # Banner
-printMainHeader()
+printBanner()
+
+### ---------------------------------------------- ###
 
 # Getting the url from the user
 prod_url = input('\nInsert Product URL: ')
 product = getProduct(prod_url)
 
+# Validate URL
+
 prod_title = product['product']['title'] # Product Title
 prod_id = product['product']['id'] # Product ID
 prod_options = product['product']['variants'] # List of product variants
 
-target_prod = getProdType()
-variant_id = getVariantInfo(prod_options, target_prod)
-available = checkAvailability(prod_url, prod_id, variant_id)
+target_prod = getProdType() # Product type
+var_id = getVariantID(prod_options, target_prod) # 
+available = checkAvailability(prod_url, prod_id, var_id)
+cart_url = getCartLink(prod_url, var_id)
 
 product_type = target_prod[0]
 
+### ---------------------------------------------- ###
+
+# If the product is in stock
 if available:
-    status = 'In Stock'
-else:
-    status = 'Out of Stock'
+    print('\n-------- Product in stock --------')
 
-# If a product was found 
-if variant_id != None:
-    # Printing product specifications
-    printResultHeader()
-    print('Product Name: ' + str(prod_title))
+    # Opening cart in browser
+    print('\nAdding product to cart, one moment.')
+    webbrowser.open_new(cart_url)
+    print('Task completed.\n')
 
-    # Print the options 
-    if product_type == 'clothing':        
-        clothing_size = formatSize(target_prod[1]).upper()
-        clothing_colour = target_prod[2]
-        print('Product Size: ' + str(clothing_size))
-        print('Product Colour: ' + str(clothing_colour).title())
-    elif product_type == 'shoes':
-        print('Product Size: ' + str(clothing_size).upper())
-
-    print('Product ID: ' + str(prod_id))
-    print('Variant ID: ' + str(variant_id))
-    print('Availability: ' + str(status))
-    print('---------------------------------')
-
-    # If the product is in stock
-    if available:
-        num_items = getCartNum()
-        cart_url = getCartLink(prod_url, variant_id, num_items)
-        
-        # Opening cart in browser
-        print('\nAdding product to cart, one moment.')
-        webbrowser.open_new(cart_url)
-        print('Task completed.\n')
+    if dict.size() == 0:
         quit()
+    else: 
+        watchProducts(profile_dict, prod_dict, prod_name)
 
-    else:
-        print('\nProduct not in stock')
-        cart_url = getCartLink(prod_url, variant_id, 1)
-        getWatchOption(profile_dict, product_dict, prod_title, prod_id, variant_id, cart_url)
-
-        # run availability check here
-
-# If product was not found or invalid entry
 else:
-    retryEntry(prod_id)
+    print('\n-------- Product out of stock --------')
+    
+    if getWatchOption():
+        prod_dict.newProduct(prod_title) ## Adding product to watchlist    
+        prod_dict.setVal(prod_title, 'Product URL', prod_url)
+        prod_dict.setVal(prod_title, 'Product ID', prod_id)
+        prod_dict.setVal(prod_title, 'Variant ID', var_id)
+        prod_dict.setVal(prod_title, 'Cart URL', cart_url)
+
+        if getAutoCheckout(profile_dict):
+            createProfile(profile_dict, prod_dict, prod_title)
+
+            if getNewProd(prod_dict):
+                print('run program again') ##########
+
+if prod_dict.size() >= 1:
+    watchProducts(profile_dict, prod_dict, prod_title)
+
+else:
+    quit()

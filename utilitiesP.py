@@ -1,6 +1,5 @@
 
-import requests
-import json
+import requests, json
 
 from inputP import getProdType
 
@@ -69,7 +68,7 @@ def formatSize(size):
     return size
 
 # Function that gets the product's ID 
-def getVariantInfo(variants, target_prod):
+def getVariantID(variants, target_prod):
 
     # Product type
     if target_prod[0] == 'item':
@@ -160,14 +159,15 @@ def checkAvailability(prod_url, prod_id, var_id):
 
                 if variant['id'] == var_id:
                     available = variant['available']
+
                     if available:
                         return True
 
     return False
 
 # Creates and returns the cart url of item entered
-def getCartLink(prod_url, variant_id, num_items):
+def getCartLink(prod_url, variant_id):
 
     domain = prod_url.split('/')[2]
-    cart_url = 'https://' + domain + '/cart/update?updates[' + str(variant_id) + ']=' + str(num_items)
+    cart_url = 'https://' + domain + '/cart/update?updates[' + str(variant_id) + ']=1'
     return cart_url

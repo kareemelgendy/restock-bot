@@ -43,10 +43,21 @@ class Profile:
                 break
 
     # Prints a profile's deetails
-    def printProfile(self, profile_name):
+    def printProfileInfo(self, profile_name):
         print('Profile Name: ' + str(profile_name))
         for keys in self.profiles[profile_name]:
             print(str(keys) + ': ' + str(self.profiles[profile_name][keys]))
+
+        # Prints all products
+    def printProfiles(self):
+        for profiles in self.profiles:
+            print(products)
+
+    def printAll(self):
+        for profiles in self.profiles:
+            print('Profile Name: ' + str(profiles))
+            for keys in self.profiles[profiles]:
+                print('\t' + str(keys) + ': ' + str(self.profiles[profiles][keys]))
     
     # Returns the size of the dictionary
     def size(self):
