@@ -1,25 +1,31 @@
 
 import requests, json
-
-from inputP import getProdType
+from inputP import get_prod_type
 
 # Function that loads the products json file
-def getProduct(prod_url):
+def get_product(prod_url):
 
-    #If a variant is in the url
-    if len(prod_url.split('?')) > 1:
-        prod_url = prod_url.split('?')[0]
+    try:
+        print(requests.get(prod_url).status_code)
 
-    web_json = prod_url + '.json'
-    prod_handle = prod_url.split('products/')[1].lower()
+        #If a variant is in the url
+        if len(prod_url.split('?')) > 1:
+            prod_url = prod_url.split('?')[0]
 
-    website = requests.get(web_json)
-    products = json.loads((website.text))
+        web_json = prod_url + '.json'
+        prod_handle = prod_url.split('products/')[1].lower()
 
-    return products
+        website = requests.get(web_json)
+        products = json.loads((website.text))
+
+        return products
+    
+    except:
+        print('Invalid URL entered')
+        return False
 
 # Returns the number of product variants
-def getNumVariants(variants): 
+def get_num_variants(variants): 
     variant_count = 0
     i = 1
     for variant in variants:
@@ -31,7 +37,7 @@ def getNumVariants(variants):
     return variant_count
 
 # Formats the clothing size
-def formatSize(size):
+def format_size(size):
 
     # Formatting the size
     size = size.replace('-', '').lower()
@@ -68,7 +74,7 @@ def formatSize(size):
     return size
 
 # Function that gets the product's ID 
-def getVariantID(variants, target_prod):
+def get_variant_id(variants, target_prod):
 
     # Product type
     if target_prod[0] == 'item':
@@ -80,7 +86,7 @@ def getVariantID(variants, target_prod):
         shoe_size = target_prod[1]
 
     target_prod = target_prod[0]
-    num_variants = getNumVariants(variants)
+    num_variants = get_num_variants(variants)
     
     # Checking variants
     for variant in variants:
@@ -102,13 +108,13 @@ def getVariantID(variants, target_prod):
                     # If clothing item only has one variant - size
                     if num_variants == 1: #and not found:
                         # If specified size is found
-                        if formatSize(option) == formatSize(clothing_size):
+                        if format_size(option) == format_size(clothing_size):
                             return variant_id
 
                     # If clothing item has two variants - size & colour
                     elif num_variants == 2: #and not found:
                         # If the specified size is found
-                        if formatSize(option) == formatSize(clothing_size):
+                        if format_size(option) == format_size(clothing_size):
                             # Find the specified colour in the current size
                             for i in range(i + 1, 3):
                                 option = variant['option' + str(i)]
@@ -122,7 +128,7 @@ def getVariantID(variants, target_prod):
                             for i in range(i + 1, 3):
                                 option = variant['option' + str(i)]
                                 # If the product is found
-                                if formatSize(option) == formatSize(clothing_size):
+                                if format_size(option) == format_size(clothing_size):
                                     return variant_id
 
                 # If the item is footwear
@@ -135,7 +141,7 @@ def getVariantID(variants, target_prod):
     return None
 
 # Returns product availability
-def checkAvailability(prod_url, prod_id, var_id):
+def check_availability(prod_url, prod_id, var_id):
 
     domain = prod_url.split('/')[2].split('.')
 
@@ -166,8 +172,9 @@ def checkAvailability(prod_url, prod_id, var_id):
     return False
 
 # Creates and returns the cart url of item entered
-def getCartLink(prod_url, variant_id):
+def get_cart_link(prod_url, var_id):
 
     domain = prod_url.split('/')[2]
-    cart_url = 'https://' + domain + '/cart/update?updates[' + str(variant_id) + ']=1'
+    cart_url = 'https://' + domain + '/cart/update?updates[' + str(var_id) + ']=1'
+    print(cart_url)
     return cart_url

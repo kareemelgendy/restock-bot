@@ -1,5 +1,5 @@
 
-def printBanner():
+def print_banner():
 
     print('\n----------------------------------------------------------')
     print('                  Welcome to RestockBot')
