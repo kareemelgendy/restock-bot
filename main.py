@@ -1,12 +1,12 @@
 
 import webbrowser
 
-from profileDict import Profile
-from productDict import Product
+from profile_dict import Profile
+from product_dict import Product
 from banner import print_banner
 from watch import watch_products
 from user_input import *
-from utilitiesP import *
+from utilities import *
 
 # Main program
 def main(profile_dict, product_dict):

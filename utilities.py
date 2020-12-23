@@ -137,6 +137,9 @@ def get_variant_id(variants, target_prod):
                     if option == str(shoe_size):
                         return variant_id
 
+                else:
+                    print('Product type not found')
+
     print('\nProduct not found.')
     return None
 
@@ -157,24 +160,19 @@ def check_availability(prod_url, prod_id, var_id):
     # Checking availability
     for product in products:
         if product['id'] == prod_id:
-            name = product['title']
 
             variants = product['variants']
             for variant in variants:
-                available = variant['available']
 
                 if variant['id'] == var_id:
                     available = variant['available']
 
                     if available:
                         return True
-
     return False
 
 # Creates and returns the cart url of item entered
 def get_cart_link(prod_url, var_id):
-
     domain = prod_url.split('/')[2]
     cart_url = 'https://' + domain + '/cart/update?updates[' + str(var_id) + ']=1'
-    print(cart_url)
     return cart_url
