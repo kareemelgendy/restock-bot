@@ -59,7 +59,7 @@ class Product:
     def size(self):
         return len(self.products)
 
-    # Returns if the dictionary is empty
+    # Returns if the dictionary is empty or not
     def is_empty(self):
         if len(self.products) == 0:
             return True

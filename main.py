@@ -3,10 +3,10 @@ import webbrowser
 
 from profileDict import Profile
 from productDict import Product
-from outputP import *
-from inputP import *
+from banner import print_banner
+from watch import watch_products
+from user_input import *
 from utilitiesP import *
-from watch import *
 
 # Main program
 def main(profile_dict, product_dict):
@@ -61,18 +61,22 @@ def main(profile_dict, product_dict):
 
                         if get_new_prod(product_dict):
                             main(profile_dict, product_dict)
+                        else:
+                            watch_products(profile_dict, product_dict, prod_title)
 
                     # Update the user when it becomes available
                     else:
-                        try:
-                            print('\nThe program will notify you when the product becomes available')
-                            product_dict.set_val(prod_title, 'Notification', input('Enter your phone number: '))
+                        #try:
+                        print('\nThe program will notify you when the product becomes available')
+                        product_dict.set_val(prod_title, 'Notification', input('Enter your phone number: '))
 
-                            if get_new_prod(product_dict):
-                                main(profile_dict, product_dict)
+                        if get_new_prod(product_dict):
+                            main(profile_dict, product_dict)
+                        else:
+                            watch_products(profile_dict, product_dict, prod_title)
 
-                        except:
-                            print('Error - cannot set phone number to product')
+                #         except:
+                #             print('Error - cannot set phone number to product')
                 else:
                     print('\nUser does not want to watch the product')
 
@@ -84,10 +88,9 @@ def main(profile_dict, product_dict):
             if not product_dict.is_empty():
                 watch_products(profile_dict, product_dict, prod_title)
             else:
-                print('-------- QUITTING')
                 quit()
-        else:
-            print('Invalid URL - Product not found')
+    else:
+        print('Invalid URL - Product not found')
 
 # Banner
 print_banner() 

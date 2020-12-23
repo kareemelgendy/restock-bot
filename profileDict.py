@@ -64,7 +64,7 @@ class Profile:
     def size(self):
         return len(self.profiles)
 
-    # Returns if the dictionary is empty
+    # Returns if the dictionary is empty or not
     def is_empty(self):
         if len(self.profiles) == 0:
             return True
