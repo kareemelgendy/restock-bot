@@ -13,7 +13,8 @@ class Product:
             'Product ID': None,
             'Variant ID': None, 
             'Cart URL': None,
-            'Profile': None
+            'Profile': None, 
+            'Notification': None,
         } 
 
     # Returns the dictionary

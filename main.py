@@ -9,12 +9,12 @@ from utilitiesP import *
 from watch import *
 
 # Main program
-def main():
+def main(profile_dict, product_dict):
     # Getting the url from the user
     prod_url = input('\nInsert Product URL: ')
-    product = get_product(prod_url)
+    product = get_product(prod_url) # Validate URL
 
-    # Validate URL
+    # If product exists
     if product != False:
         prod_title = product['product']['title'] # Product Title
         prod_id = product['product']['id'] # Product ID
@@ -22,9 +22,9 @@ def main():
 
         try:
             target_prod = get_prod_type() # Product type
-            var_id = get_variant_id(prod_options, target_prod) # 
-            available = check_availability(prod_url, prod_id, var_id)
-            cart_url = get_cart_link(prod_url, var_id)
+            variant_id = get_variant_id(prod_options, target_prod) # 
+            available = check_availability(prod_url, prod_id, variant_id)
+            cart_url = get_cart_link(prod_url, variant_id)
             product_type = target_prod[0]
 
             # Product in stock
@@ -37,48 +37,63 @@ def main():
                 print('Task completed.\n')
 
                 # No products being watched
-                if prod_dict.is_empty():
+                if product_dict.is_empty():
                     quit()
                 else: 
-                    watch_products(profile_dict, prod_dict, prod_title)
+                    print('\nWatching products...')
+                    watch_products(profile_dict, product_dict, prod_title)
 
             # Product not in stock
             else:
                 print('\n-------- Product out of stock --------')
                 
                 if get_watch_option():
-                    prod_dict.new_product(prod_title) ## Adding product to watchlist    
-                    prod_dict.set_val(prod_title, 'Product URL', prod_url)
-                    prod_dict.set_val(prod_title, 'Product ID', prod_id)
-                    prod_dict.set_val(prod_title, 'Variant ID', var_id)
-                    prod_dict.set_val(prod_title, 'Cart URL', cart_url)
+                    print('get watch option true')
+                    product_dict.new_product(prod_title) ## Adding product to watchlist    
+                    product_dict.set_val(prod_title, 'Product URL', prod_url)
+                    product_dict.set_val(prod_title, 'Product ID', prod_id)
+                    product_dict.set_val(prod_title, 'Variant ID', variant_id)
+                    product_dict.set_val(prod_title, 'Cart URL', cart_url)
 
-                    if get_auto_checkout(profile_dict):
-                        create_profile(profile_dict, prod_dict, prod_title)
+                    # Automatically check out the product
+                    if get_auto_checkout(profile_dict, product_dict):
+                        create_profile(profile_dict, product_dict, prod_title)
 
-                        if get_new_prod(prod_dict):
-                            main()
-        
+                        if get_new_prod(product_dict):
+                            main(profile_dict, product_dict)
+
+                    # Update the user when it becomes available
+                    else:
+                        try:
+                            print('\nThe program will notify you when the product becomes available')
+                            product_dict.set_val(prod_title, 'Notification', input('Enter your phone number: '))
+
+                            if get_new_prod(product_dict):
+                                main(profile_dict, product_dict)
+
+                        except:
+                            print('Error - cannot set phone number to product')
+                else:
+                    print('\nUser does not want to watch the product')
+
+                    if product_dict.is_empty():
+                        print('Product watchlist empty - quitting now.')
+                        quit()
+
         except:
-            print('\nError occured.')
-            print('Make sure all entries are valid.')
-
-            if get_new_prod(prod_dict):
-                main()
-
-        if not prod_dict.is_empty():
-            watch_products(profile_dict, prod_dict, prod_title)
+            if not product_dict.is_empty():
+                watch_products(profile_dict, product_dict, prod_title)
+            else:
+                print('-------- QUITTING')
+                quit()
         else:
-            quit()
-    else:
-        print('call menu')
-
-# Initializing the dictionaries
-profile_dict = Profile()
-prod_dict = Product()
+            print('Invalid URL - Product not found')
 
 # Banner
 print_banner() 
 
-# Running main program
-main()
+# Initializing the dictionaries
+profile_dict = Profile()
+product_dict = Product()
+
+main(profile_dict, product_dict)
