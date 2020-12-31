@@ -12,23 +12,27 @@ class Profile:
             'Last Name': None,
             'Email': None,
             'Address': None,
-            'Address 2': None,  # Optional
+            'Address 2 (optional)': None,  # Optional
             'City': None,
             'Province': None,
-            'State': None,
             'Country': None,
-            'Postal Code': None, # No spaces
-            'Phone': None, # No dashes or spaces
+            'Postal Code': None, 
+            'Phone': None, 
             'CC Number': None,
             'CC Name': None,
-            'Expiry Month': None,  # 2 digits
-            'Expiry Year': None,  # 4 digits
-            'CVV': None  # 3 digits
+            'CC Expiry Date (MM/YY)': None,  
+            'CVV': None 
         }
 
     # Deletes a profile
     def delete_profile(self, profile_name):
         del self.profiles[profile_name]
+    
+    def get_profile(self, profile_name):
+        try:
+            return self.profiles[profile_name]
+        except KeyError:
+            return None
 
     # Returns value of a key in given profile
     def get_val(self, profile_name, key):
@@ -42,23 +46,23 @@ class Profile:
                 profile[target_key] = newValue
                 break
 
-    # Prints a profile's details
-    def print_profile_info(self, profile_name):
-        print('Profile Name: ' + str(profile_name))
-        for keys in self.profiles[profile_name]:
-            print(str(keys) + ': ' + str(self.profiles[profile_name][keys]))
-
     # Prints all profile names
     def print_profiles(self):
         for profiles in self.profiles:
-            print(products)
+            print(profiles)
+            
+    # Prints a profile's details
+    def print_profile_info(self, profile_name):
+        print('Profile Name: {}'.format(profile_name))
+        for keys in self.profiles[profile_name]:
+            print('{}: {}'.format(keys, self.profiles[profile_name][keys]))
 
     # Prints all profiles and their information
     def print_all(self):
         for profiles in self.profiles:
-            print('Profile Name: ' + str(profiles))
+            print('Profile Name: {}'.format(profiles))
             for keys in self.profiles[profiles]:
-                print('\t' + str(keys) + ': ' + str(self.profiles[profiles][keys]))
+                print('\t{}: {}'.format(keys, self.profiles[profiles][keys]))
     
     # Returns the size of the dictionary
     def size(self):

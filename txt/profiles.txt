@@ -1,0 +1,88 @@
+Insert profile information below:
+The information entered will be used if user chooses to 
+auomatically checkout the item when it becomes available
+
+** Profile must be filled otherwise **
+- Products with a profile name as a  will not be filled if profile is not found (fill accurately)
+
+Example profile:
+---- Personal Information ----
+Profile Name: John Doe 
+First Name: John
+Last Name: Doe
+Email: johndoe@gmail.com
+Address: 123 Street
+Address 2 (optional):
+City: Toronto
+Province: Ontario
+Country: Canada
+Postal Code: M5B2H1
+Phone: 6474561234
+---- Payment Information ----
+CC Number: 1234123412341234
+CC Name: John Doe
+CC Expiry Date (MM/YY): 12/23
+CVV: 456
+
+---------------------------------
+Insert Profile information below:
+
+---- Personal Information ----
+Profile Name: Kareem
+First Name: Kareem
+Last Name: Example
+Email: example@gmail.com
+Address: 
+Address 2 (optional): 
+City: 
+Province: 
+Country: 
+Postal Code: 
+Phone: 
+---- Payment Information ----
+CC Number: 
+CC Name: 
+CC Expiry Date (MM/YY): 
+CVV: 
+
+------------------------------
+
+---- Personal Information ----
+Profile Name: 
+First Name: 
+Last Name: 
+Email: 
+Address: 
+Address 2 (optional): 
+City: 
+Province: 
+Country: 
+Postal Code: 
+Phone: 
+---- Payment Information ----
+CC Number: 
+CC Name: 
+CC Expiry Date (MM/YY): 
+CVV: 
+
+------------------------------
+
+---- Personal Information ----
+Profile Name: 
+First Name: 
+Last Name: 
+Email: 
+Address: 
+Address 2 (optional): 
+City: Milton
+Province: 
+Country: 
+Postal Code: 
+Phone: 
+---- Payment Information ----
+CC Number: 
+CC Name: 
+CC Expiry Date (MM/YY): 
+CVV: 
+
+------------------------------

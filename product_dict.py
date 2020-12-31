@@ -21,9 +21,16 @@ class Product:
     def get_dict(self):
         return self.products
 
+    def get_prod(self, product_name):
+        return self.products[product_name]
+
     # Removes a product 
     def remove_product(self, product_name):
-        del self.products[product_name]
+        product = self.products[product_name]
+        if product:
+            del self.products[product_name]
+        else:
+            print('Product not in the dictionary')
 
     # Sets the value of a key
     def set_val(self, product_name, target_key, newValue):
@@ -39,9 +46,9 @@ class Product:
 
     # Prints the products keys and value
     def print_prod_info(self, product_name):
-        print('Product Name: ' + str(product_name))
+        print('\nProduct Name: {}'.format(product_name))
         for keys in self.products[product_name]:
-            print(str(keys) + ': ' + str(self.products[product_name][keys]))
+            print('{}: {}'.format(keys, self.products[product_name][keys]))
 
     # Prints all products
     def print_products(self):
@@ -51,9 +58,9 @@ class Product:
     # Prints all products and their information
     def print_all(self):
         for products in self.products:
-            print('Product Name: ' + str(products))
+            print('Product Name: {}'.format(products))
             for keys in self.products[products]:
-                print('\t' + str(keys) + ': ' + str(self.products[products][keys]))
+                print('\t{}: {}'.format(keys, self.products[products][keys]))
 
     # Returns the size of the dictionary
     def size(self):
