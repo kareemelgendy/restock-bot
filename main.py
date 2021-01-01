@@ -1,13 +1,12 @@
 
-import time
-
 from product_dict import Product
 from profile_dict import Profile
 from watch import watch_products
 from file_reader import *
 
-# To Do
-# Replace webbrowser with selenium webdriver
+import time
+
+# To Do:
 # Catch Duplicate products
 # Implement proxy support
 # Automate checkout
@@ -31,6 +30,8 @@ print('-' * 58)
 profiles = Profile()
 products = Product()
 
+time.sleep(2)
+
 # Getting Profiles & Products from txt files
 get_profiles(profiles)
 get_products(profiles, products)
@@ -38,11 +39,9 @@ get_products(profiles, products)
 watch = False
 
 # Product Watchlist
-while not products.is_empty():
+if not products.is_empty():
     watch = True
     watch_products(profiles, products)
-    time.sleep(60) # Check availability every x seconds
-    print('-' * 40)
 
 # Watch process never initiated
 if not watch:

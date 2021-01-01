@@ -1,6 +1,5 @@
 
-import json, requests
-import webbrowser
+import json, requests, webbrowser
 
 # Returns product's json data
 def get_product(prod_url):
@@ -23,14 +22,18 @@ def get_num_variants(variants):
     variant_count = 0
     i = 1
 
-    for variant in variants:
-        if variant['option' + str(i)] != None:
-            variant_count += 1
-        else:
-            break
-        i += 1
+    try:
+        for variant in variants:
+            if variant['option' + str(i)] != None:
+                variant_count += 1
+            else:
+                break
+            i += 1
+        
+        return variant_count
 
-    return variant_count
+    except KeyError:
+        return None
 
 # Formats the clothing size
 def format_size(size):
@@ -126,7 +129,6 @@ def get_variant_id(variants, target_prod, size, colour):
                 # Accessory
                 if target_prod == 'accessory':
                     if option == 'default title' or option == 'o\/s':
-                        print(variant_id)
                         return variant_id
                 
                 # Clothing
