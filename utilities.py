@@ -192,7 +192,7 @@ def check_availability(prod_url, prod_id, var_id):
 # Creates and returns the cart url 
 def generate_cart_link(prod_url, variant_id):
     domain = prod_url.split('/')[2]
-    cart_url = 'https://{}/cart/update?updates[{}]=1'.format(domain, variant_id)
+    cart_url = 'https://{}/cart/{}:1'.format(domain, variant_id)
     return cart_url
 
 # Processes product - Cart, Watch, or Ignore
