@@ -1,6 +1,8 @@
 
 from utilities import *
 
+from profile_dict import Profile
+
 # Reads profiles from txt file
 def get_profiles(profile_dict):
 
@@ -20,15 +22,17 @@ def get_profiles(profile_dict):
                     # Profile key and value
                     key = current[0].strip()
                     value = current[1].strip()
-                    
+
                     # New profile
                     if key == 'Profile Name' and len(value) > 0:
-                        profile_name = value
+                        profile_name = value.strip()
                         profile_dict.new_profile(profile_name)
 
+
                     # Valid entry
-                    if profile_name != None and key != None and value != None:
+                    if profile_name and key.strip() and value.strip():
                         profile_dict.set_val(profile_name, key, value) 
+
         f.close()
 
         if not profile_dict.is_empty():
