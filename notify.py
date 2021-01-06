@@ -1,6 +1,9 @@
 
 from twilio.rest import Client
-from twilio_cred import *
+
+twilio_number = "" 
+twilio_account = ""
+twilio_token = ""
 
 # Sends an SMS to user's number with update
 def notify_user(phone, update):
