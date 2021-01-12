@@ -26,7 +26,7 @@ For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/Rest
 ### Download Repository
 ```sh
 $ git clone https://github.com/kareemelgendy/RestockBot.git
-$ cd RestockBot-main
+$ cd RestockBot
 ```
 
 ### Install Required Modules
