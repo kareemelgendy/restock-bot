@@ -7,8 +7,8 @@ For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/Rest
 <img src="./demo/demo.gif" height="500" style="height:auto; width:auto"/>
 
 # TO DO
-- Automate checkout
-- Implement proxy support
+- [ ] Automate checkout
+- [ ] Implement proxy support
 
 # Important
 - Make sure /products.json is accessible
@@ -26,7 +26,7 @@ For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/Rest
 ### Download Repository
 ```sh
 $ git clone https://github.com/kareemelgendy/RestockBot.git
-$ cd RestockBot
+$ cd RestockBot-main
 ```
 
 ### Install Required Modules
