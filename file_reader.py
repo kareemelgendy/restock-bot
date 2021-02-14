@@ -1,6 +1,5 @@
 
 from utilities import *
-
 from profile_dict import Profile
 
 # Reads profiles from txt file
@@ -15,9 +14,7 @@ def get_profiles(profile_dict):
 
             profile_name = None 
             for line in f:
-
                 current = line.split(':')
-
                 if len(current) == 2:
                     # Profile key and value
                     key = current[0].strip()
@@ -27,7 +24,6 @@ def get_profiles(profile_dict):
                     if key == 'Profile Name' and len(value) > 0:
                         profile_name = value.strip()
                         profile_dict.new_profile(profile_name)
-
 
                     # Valid entry
                     if profile_name and key.strip() and value.strip():
@@ -80,7 +76,6 @@ def get_products(profile_dict, product_dict):
                             num_variants = get_num_variants(product_info['product']['variants'])
 
                             if num_variants != None:
-
                                 product_dict.new_product(title) # Adding product to watchlist    
                                 product_dict.set_val(title, 'Product URL', prod_url)
                                 product_dict.set_val(title, 'Product ID', pid)
