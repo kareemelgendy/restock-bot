@@ -28,6 +28,7 @@ class Profile:
     def delete_profile(self, profile_name):
         del self.profiles[profile_name]
     
+    # Checks if a profile is in the dictionary
     def get_profile(self, profile_name):
         try:
             return self.profiles[profile_name]

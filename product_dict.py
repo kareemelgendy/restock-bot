@@ -21,8 +21,12 @@ class Product:
     def get_dict(self):
         return self.products
 
+    # Checks if a product is in the dictionary
     def get_prod(self, product_name):
-        return self.products[product_name]
+        try:
+            return self.products[product_name]
+        except KeyError:
+            return None
 
     # Removes a product 
     def remove_product(self, product_name):
