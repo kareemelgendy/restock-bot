@@ -16,6 +16,7 @@ For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/Rest
 - Enter Twilio API credentials to send SMS updates (notify.py)
 
 ### Required Modules
+- beautifulsoup4
 - webbrowser
 - requests
 - twilio
