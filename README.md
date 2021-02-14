@@ -1,5 +1,5 @@
 # Restock Bot
-A Python script that will scrape an e-commerce website powered by Shopify to periodically check for a product restock as well as update the user through SMS or automatically attempt to check out the item(s) being watched the moment they become available.
+A Python script that will scrape e-commerce websites powered by Shopify to periodically check for a product restock and update the user through SMS or automatically attempt to check out the item(s) being watched the moment they become available.
 
 ## Demo
 For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/RestockBot%20Demo.mov?dl=0" target="_blank">click here</a>
@@ -8,6 +8,7 @@ For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/Rest
 
 # TO DO
 - [ ] Automate checkout
+- [ ] Accept products with duplicate names
 - [ ] Implement proxy support
 
 # Important
@@ -20,10 +21,11 @@ For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/Rest
 - twilio
 - time
 - json
+- lxml
 
 # Getting Started
 
-### Download Repository
+### Download The Repository
 ```sh
 $ git clone https://github.com/kareemelgendy/RestockBot.git
 $ cd RestockBot
@@ -41,7 +43,7 @@ $ rm -r demo
 
 ### Once all modules are installed and txt files are filled: 
 
-In Terminal, change directory to project folder and execute the following line to run the script:
+In Terminal, change directory to the project folder and execute the following line to run the script:
 ```sh
 $ python3 main.py
 ```
