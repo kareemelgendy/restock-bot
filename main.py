@@ -7,7 +7,7 @@ from file_reader import *
 import time
 
 # To Do:
-# Catch Duplicate products
+# Catch Duplicate products (same name)
 # Implement proxy support
 # Automate checkout
 # Optimize process
@@ -17,9 +17,9 @@ print('\n' + ('-' * 58))
 print('\t\tWelcome to RestockBot')
 print('-' * 58)
 print('Product types supported:')
-print('{} Clothing items with letter sizing (xxs - xxl) and/or colour options'.format('\U0001f455'))
-print('{} Footwear with number size options (whole & half sizes)'.format('\U0001f45f'))
-print('{} Accessories with no variants (o/s - one option)'.format('\U0001f392'))
+print(f'{'\U0001f455'} Clothing items with letter sizing (xxs - xxl) and/or colour options')
+print(f'{'\U0001f45f'} Footwear with number size options (whole & half sizes)')
+print(f'{'\U0001f392'} Accessories with no variants (o/s - one option)')
 print('\nTo get started: ')
 print('1. Insert product links in products.txt')
 print('2. Insert profiles in profiles.txt (For automatic checkout)')
@@ -45,5 +45,5 @@ if not products.is_empty():
 
 # Watch process never initiated
 if not watch:
-    print('\n{} No products being watched. Quitting now...'.format('\U0001F44B'))
+    print(f'\n{'\U0001F44B'} No products being watched. Quitting now...')
     quit()
