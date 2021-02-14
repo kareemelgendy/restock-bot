@@ -1,2 +1,4 @@
 requests==2.25.1
 twilio==6.50.1
+beautifulsoup4==4.9.3
+lxml==4.6.2
