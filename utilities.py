@@ -9,7 +9,7 @@ def get_product(prod_url):
         if len(prod_url.split('?')) > 1:
             prod_url = prod_url.split('?')[0]
 
-        prod_json = prod_url.strip() + '.json'
+        prod_json = prod_url + '.json'
         r = requests.get(prod_json)
         products = json.loads((r.text))
         return products
@@ -40,7 +40,7 @@ def format_size(size):
 
     size = size.replace('-', '').lower()
 
-    # list of sizes and possibilities (x & xs)
+    # list of sizes and possibilities (x & xx)
     xxs = ['xxs', 'xxsm', 'xxsmall', '2xs']
     xs = ['xs', 'xsm', 'xsmall']
     xl = ['xl', 'xlg', 'xlarge']
@@ -98,7 +98,7 @@ def get_target(profile_dict, product_dict, title, line):
     # If entry is a number
     try:
         target = int(current[1].replace('-', '').strip())
-        product_dict.set_val(title, 'Notification', target) ##########
+        product_dict.set_val(title, 'Notification', target) 
         return True
 
     except ValueError:
@@ -108,7 +108,7 @@ def get_target(profile_dict, product_dict, title, line):
             product_dict.set_val(title, 'Profile', target)
             return True
         else:
-            print('\n{} Could not retrieve product from (Invalid Profile Name/Number): \n{}'.format('\U0001f534', line))
+            print(f'\n{'\U0001f534'} Could not retrieve product from (Invalid Profile Name/Number): \n{line}')
             product_dict.remove_product(title)
             return False
 
@@ -173,7 +173,7 @@ def get_variant_id(variants, target_prod, size, colour):
 def check_availability(prod_url, prod_id, var_id):
 
     url = prod_url.split('/products/')[0]
-    web_json = '{}/products.json?limit=5000'.format(url)
+    web_json = f'{url}/products.json?limit=5000'
     website = requests.get(web_json)
     products = json.loads((website.text))['products']
 
@@ -194,24 +194,24 @@ def check_availability(prod_url, prod_id, var_id):
 # Creates and returns the cart url 
 def generate_cart_link(prod_url, variant_id):
     domain = prod_url.split('/')[2]
-    cart_url = 'https://{}/cart/{}:1'.format(domain, variant_id)
+    cart_url = f'https://{domain}/cart/{variant_id}:1'
     return cart_url
 
 # Processes product - Cart, Watch, or Ignore
 def process_prod(product_dict, title, cart_url, availability, line):
 
     if availability == True:
-        print('\n{} {} was found in stock - adding to cart'.format('\U0001f6d2', title))
+        print(f'\n{'\U0001f6d2'} {title} was found in stock - adding to cart')
         open_cart(cart_url)
 
         if product_dict.get_prod(title):
             product_dict.remove_product(title)
 
     elif not availability:
-        print('\n{} {} added to watchlist'.format('\u2705', title)) 
+        print(f'\n{'\u2705'} {title} added to watchlist') 
 
     else:
-        print('\n{} The following website is not currently supported OR invalid URL (make sure collection included)\n{}'.format('\U0001f534', line))
+        print(f'\n{'\U0001f534'} The following website is not currently supported OR invalid URL (make sure collection included)\n{line}')
         product_dict.remove_product(title)
 
 # Opens cart if product is available
@@ -221,6 +221,4 @@ def open_cart(cart_url):
         webbrowser.open(cart_url)
         return True
     except:
-        #print('\nMake sure you have chromedriver installed and in restockBot folder.')
-        #print('More information provided in the README file')
         print('Error occured could not open browser.')
