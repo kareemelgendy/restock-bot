@@ -1,6 +1,5 @@
 
 import time
-
 from utilities import check_availability
 from checkout import checkout_prod
 from notify import notify_user
@@ -9,7 +8,6 @@ from notify import notify_user
 def watch_products(profile_dict, product_dict):
 
     while True:
-
         if not product_dict.is_empty():
             
             # For each product in watchlist
@@ -22,7 +20,7 @@ def watch_products(profile_dict, product_dict):
 
                 # Product back in stock
                 if availability == True:
-                    print('\t{} Product: {} is back in stock'.format('\u2705', product))
+                    print(f'\t{'\u2705'} Product: {product} is back in stock')
 
                     cart_url = product_dict.get_val(product,'Cart URL')
                     profile_name = product_dict.get_val(product,'Profile')
@@ -34,11 +32,10 @@ def watch_products(profile_dict, product_dict):
                         # Update the user - SMS
                         try:
                             number = product_dict.get_val(product, 'Notification')
-                            message = "{} {} is back in stock.\nPress the link below to purchase:\n {}".format('\U0001f6cd', product, cart_url) ###############
                             notify_user(number, message)
-                            
+                            message = f'{'\U0001f6cd'} {product} is back in stock.\nPress the link below to purchase:\n {cart_url}'                            
                         except:
-                            print('\t\t\u26A0 SMS could not be sent')
+                            print(f'\t\t{'\u26A0'} SMS could not be sent')
 
 
                     # If user set a number for notifications
@@ -51,26 +48,26 @@ def watch_products(profile_dict, product_dict):
                         try:
                             email = profile_dict.get_val(profile_name, 'Email')
                             number = profile_dict.get_val(profile_name, 'Phone')
-                            message = '\t{} {} check out attempted. Check {}'.format('\U0001f6d2', product, email)
                             notify_user(number, message)
+                            message = f'\t{'\U0001f6d2'} {product} check out attempted. Check {email}'
 
                         except:
-                            print('\t\t{} SMS could not be sent'.format('\U0001f534')) ###########
+                            print(f'\t\t{'\U0001f534'} SMS could not be sent') 
 
                     # Remove product after checkout attempt
                     product_dict.remove_product(product)
-                    print('\t\t{} {} now removed from watchlist'.format('\U0001f535', product))
+                    print(f'\t\t{'\U0001f535'} {product} now removed from watchlist')
 
                 elif availability == False:
-                    print("\t{} Product: {} not in stock".format('\U0001f449', product))
+                    print(f'\t{'\U0001f449'} Product: {product} not in stock')
 
                 else:
                     product_dict.remove_product(product)
-                    print('\t{} Error occured while watching - {}'.format('\U0001f534', product))
-                    print('\t\t{} {} removed from watchlist'.format('\U0001f535', product))
+                    print(f'\t{'\U0001f534'} Error occured while watching - {product}')
+                    print(f'\t\t{'\U0001f535'} {product} removed from watchlist')
 
         else:
-            print('\n{} No products being watched. Quitting now...'.format('\U0001F44B'))
+            print(f'\n{'\U0001F44B'} No products being watched. Quitting now...')
             quit()
 
         time.sleep(60) # Check availability every x seconds
