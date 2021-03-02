@@ -108,7 +108,7 @@ def get_target(profile_dict, product_dict, title, line):
             product_dict.set_val(title, 'Profile', target)
             return True
         else:
-            print(f'\n{'\U0001f534'} Could not retrieve product from (Invalid Profile Name/Number): \n{line}')
+            print('\n{} Could not retrieve product from (Invalid Profile Name/Number): \n{}'.format('\U0001f534', line))
             product_dict.remove_product(title)
             return False
 
@@ -201,17 +201,17 @@ def generate_cart_link(prod_url, variant_id):
 def process_prod(product_dict, title, cart_url, availability, line):
 
     if availability == True:
-        print(f'\n{'\U0001f6d2'} {title} was found in stock - adding to cart')
+        print('\n{} {} was found in stock - adding to cart'.format('\U0001f6d2', title))
         open_cart(cart_url)
 
         if product_dict.get_prod(title):
             product_dict.remove_product(title)
 
     elif not availability:
-        print(f'\n{'\u2705'} {title} added to watchlist') 
+        print('\n{} {} added to watchlist'.format('\u2705', title)) 
 
     else:
-        print(f'\n{'\U0001f534'} The following website is not currently supported OR invalid URL (make sure collection included)\n{line}')
+        print('\n{} The following website is not currently supported OR invalid URL (make sure collection included)\n{}'.format('\U0001f534', line))
         product_dict.remove_product(title)
 
 # Opens cart if product is available
