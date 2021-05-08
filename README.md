@@ -2,12 +2,12 @@
 A Python script that will scrape e-commerce websites powered by Shopify to periodically check for a product restock and update the user through SMS or automatically attempt to check out the item(s) being watched the moment they become available.
 
 ## Demo
-For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/RestockBot%20Demo.mov?dl=0" target="_blank">click here</a>
+For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/RestockBot%20Demo.mov?raw=0" target="_blank">click here</a>
 
 <img src="./demo/demo.gif" height="500" style="height:auto; width:auto"/>
 
 # TO DO
-- [ ] Automate checkout
+- [x] Automate checkout
 - [ ] Accept products with duplicate names
 - [ ] Implement proxy support
 
@@ -17,11 +17,8 @@ For a more detailed demo <a href="https://www.dropbox.com/s/38xy47fs0lhklop/Rest
 
 ### Required Modules
 - beautifulsoup4
-- webbrowser
 - requests
 - twilio
-- time
-- json
 - lxml
 
 # Getting Started
@@ -43,11 +40,11 @@ $ rm -r demo
 ```
 
 ### Once all modules are installed and txt files are filled: 
-
 In Terminal, change directory to the project folder and execute the following line to run the script:
 ```sh
 $ python3 main.py
 ```
 
 # Disclaimer
-This program is a personal project and is not affiliated with Shopify in any way.
+This project was made with the intent to learn about webscraping and task automation.
+The developer of this software should not be held liable for any lost opportunities resulting from its usage.
