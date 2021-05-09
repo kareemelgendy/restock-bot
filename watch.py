@@ -1,15 +1,17 @@
 
 import time
 from utilities import check_availability
-from checkout import checkout_prod
+from checkout import shopify_checkout
 from notify import notify_user
 
 # Checks saved products availability every minute
 def watch_products(profile_dict, product_dict):
 
+    # Checkout class
+    checkout = shopify_checkout()
+
     while True:
         if not product_dict.is_empty():
-            
             # For each product in watchlist
             for product in product_dict.get_dict():
                 url = product_dict.get_val(product, 'Product URL')
@@ -28,28 +30,26 @@ def watch_products(profile_dict, product_dict):
 
                     # If user set a profile for the product
                     if phone != None:
-
                         # Update the user - SMS
                         try:
                             number = product_dict.get_val(product, 'Notification')
-                            notify_user(number, message)
-                            message = '{} {} is back in stock.\nPress the link below to purchase:\n {}'.format('\U0001f6cd', product, cart_url)                            
+                            message = '{} {} is back in stock.\nPress the link below to purchase:\n {}'.format('\U0001f6cd', product, cart_url)    
+                            notify_user(number, message)  
+
                         except:
                             print('\t\t{} SMS could not be sent'.format('\u26A0'))
 
-
                     # If user set a number for notifications
                     elif profile_name != None:
-
                         # Checkout the product
-                        checkout_prod(cart_url, profile_name, profile_dict)
+                        checkout.checkout_prod(cart_url, profile_name, profile_dict)
 
                         # Update the user - SMS
                         try:
                             email = profile_dict.get_val(profile_name, 'Email')
                             number = profile_dict.get_val(profile_name, 'Phone')
-                            notify_user(number, message)
                             message = '\t{} {} check out attempted. Check {}'.format('\U0001f6d2', product, email)
+                            notify_user(number, message)
 
                         except:
                             print('\t\t{} SMS could not be sent'.format('\U0001f534')) 

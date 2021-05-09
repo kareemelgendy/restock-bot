@@ -7,7 +7,6 @@ def get_profiles(profile_dict):
 
     try:
         with open('./txt/profiles.txt') as f:
-
             # Skipping instructions and examples
             for i in range(30):
                 f.readline()
@@ -15,6 +14,7 @@ def get_profiles(profile_dict):
             profile_name = None 
             for line in f:
                 current = line.split(':')
+
                 if len(current) == 2:
                     # Profile key and value
                     key = current[0].strip()
@@ -27,8 +27,7 @@ def get_profiles(profile_dict):
 
                     # Valid entry
                     if profile_name and key.strip() and value.strip():
-                        profile_dict.set_val(profile_name, key, value) 
-
+                        profile_dict.set_val(profile_name, key, value)           
         f.close()
 
         if not profile_dict.is_empty():
@@ -42,7 +41,6 @@ def get_products(profile_dict, product_dict):
 
     try:
         with open('./txt/products.txt') as f:
-
             # Skipping Instructions and examples
             for i in range(27): 
                 f.readline()

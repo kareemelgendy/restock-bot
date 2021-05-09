@@ -6,25 +6,24 @@ from file_reader import *
 
 import time
 
-# To Do:
-# Catch Duplicate products (same name)
-# Implement proxy support
-# Automate checkout
-# Optimize process
+# Supported products 
+print('''\
+\n{}\n\t\t{} Welcome to RestockBot\n{}
+Product types supported:
+{} Clothing items with letter sizing (xxs - xxl) and/or colour options
+{} Footwear with number size options (whole & half sizes)
+{} Accessories with no variants (o/s - one option)
+* Note * This is a generic script and does not support all Shopify stores.
+'''.format('-' * 58, '\U0001F916', '-' * 58, '\U0001f455', '\U0001f45f', '\U0001f392'))
 
-# Instructions
-print('\n' + ('-' * 58))
-print('\t\tWelcome to RestockBot')
-print('-' * 58)
-print('Product types supported:')
-print('{} Clothing items with letter sizing (xxs - xxl) and/or colour options'.format('\U0001f455'))
-print('{} Footwear with number size options (whole & half sizes)'.format('\U0001f45f'))
-print('{} Accessories with no variants (o/s - one option)'.format('\U0001f392'))
-print('\nTo get started: ')
-print('1. Insert product links in products.txt')
-print('2. Insert profiles in profiles.txt (For automatic checkout)')
-print('3. Rerun script (if products/profiles files currently empty)')
-print('-' * 58)
+# Instructions on running the script
+print('''\
+To get started:
+1. Insert products in products.txt (with all parameters filled)
+2. Insert profiles in profiles.txt (For automatic checkout of sold out items)
+3. Rerun script (if products/profiles files currently empty)
+{}
+'''.format('-' * 58))
 
 # Dictionary initialization
 profiles = Profile()
