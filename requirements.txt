@@ -1,0 +1,4 @@
+beautifulsoup4>=4.11.1
+requests>=2.28.1
+twilio>=7.12.1
+lxml>=4.9.1

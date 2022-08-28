@@ -1,0 +1,20 @@
+{
+  "": {
+    "First Name": "",
+    "Last Name": "",
+    "Email": "",
+    "Address": "",
+    "Address 2 (optional)": "",
+    "City": "",
+    "Province": "",
+    "Country": "",
+    "Postal Code": "",
+    "Phone Number": "",
+    "Payment": {
+      "Card Number": "",
+      "Name": "",
+      "Expiry Date (MM/YY)": "",
+      "CVV": ""
+    }
+  }
+}
