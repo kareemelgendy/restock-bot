@@ -5,7 +5,7 @@ A basic Python script that will scrape e-commerce websites powered by Shopify an
 ## Important
 
 - Make sure `/products.json` is accessible.
-- Enter Twilio API credentials in the `.env` file for SMS notifications.
+- Enter Twilio API credentials in an `.env` file for SMS notifications.
 
 ## Getting Started
 
@@ -24,7 +24,7 @@ $ pip3 install -r requirements.txt
 
 3. Enter profiles (if any) in `data/profiles.json` and products in `data/products.json`.
 
-   - Profiles are only used for product checkout if opted.
+   - Profiles are only used for product checkout if opted for.
 
 **Example Profile:**
 
@@ -55,10 +55,10 @@ $ pip3 install -r requirements.txt
   - Clothing: size (required), colour (optional)
   - Footwear: size (required), colour (optional)
   - Accessories: size (not applicable), colour (not applicable)
-- If you wish to be notified by SMS, enter your phone number in the SMS field.
-- If you would like to attempt to purchase the product automatically enter the profile to use at checkout.
+- If you wish to be notified by SMS, enter your phone number in the `Notification` field.
+- If you would like to attempt to purchase the product automatically enter the profile name in the `Profile` field.
 - `Product ID`, `Variant ID`, and `Cart URL` will all be filled automatically once you run main.py.
-- In stock products will be moved to `data/in-stock.py`
+- In stock products will be moved to `data/in-stock.json`
 
 ```
 "Black Bubble Owl Tee": {
