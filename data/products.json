@@ -1,12 +1,9 @@
-{
-  "": {
+[
+  {
     "Product URL": "",
-    "Size": "M",
+    "Size": "",
     "Colour": "",
-    "Product ID": "",
-    "Variant ID": "",
-    "Cart URL": "",
     "Profile": "",
-    "Notification": ""
+    "Phone": ""
   }
-}
+]

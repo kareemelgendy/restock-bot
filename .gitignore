@@ -1,0 +1,9 @@
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Other
+.vscode
+.DS_Store
