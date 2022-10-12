@@ -1,8 +1,9 @@
 import json
+import sys
 
 
 # Reads data from JSON file
-def read_data(file: str) -> dict or list or None:
+def read_data(file: str) -> dict or list:
     try:
         with open(f'data/{file}.json') as f:
             data = json.load(f)
@@ -10,7 +11,7 @@ def read_data(file: str) -> dict or list or None:
         return data
     except FileNotFoundError:
         print('File not found.')
-        return None
+        sys.exit(1)
 
 
 # Formats letter size to readable size

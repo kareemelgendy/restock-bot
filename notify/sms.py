@@ -4,7 +4,6 @@ from twilio.rest import Client
 
 # Sends SMS using Twilio API
 def notify_user(phone, msg):
-    print(os.environ['TWILIO_ACCOUNT_SID'])
     try:
         client = Client(os.environ['TWILIO_ACCOUNT_SID'],
                         os.environ['TWILIO_AUTH_TOKEN'])
